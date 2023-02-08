@@ -1,4 +1,5 @@
 import express from 'express'
+import { get } from 'mongoose'
 import HotelDetails from '../models/hotel.js'
 
 const router = express.Router()
@@ -16,6 +17,68 @@ catch(e)
     console.log(e)
 }
 })
+
+//UPDATE Method
+
+router.put('/:id', async(req,res)=>{
+    try{
+        const updateHotel = await HotelDetails.findByIdAndUpdate(req.params.id,{$set: req.body}, {new:true})
+        res.status(200).json(updateHotel)
+}
+catch(e)
+{
+    console.log(e)
+}
+}
+)
+
+//DELETE Method
+router.delete('/:id', async(req,res)=>{
+    try{
+         await HotelDetails.findByIdAndDelete(req.params.id)
+        res.status(200).json("Hotel has been deleted from the Database...")
+}
+catch(e)
+{
+    console.log(e)
+}
+}
+)
+
+//GET Method
+router.get('/:id', async(req,res)=>{
+    try{
+         const get_hotel = await HotelDetails.findById(req.params.id)
+        res.status(200).json(get_hotel)
+}
+catch(e)
+{
+    console.log(e)
+}
+}
+)
+
+//GET all hotels
+router.get('/', async(req,res,next)=>{
+   const failed = true;
+   const err = new Error()
+   err.status = 404;
+   err.message = "Sorry. The data is not found..."
+   if(failed)
+   {
+    return next(err)
+   }
+    try{
+         const get_hotels = await HotelDetails.findById("dhjkshdkj")
+        res.status(200).json(get_hotels)
+
+}
+catch(e)
+{
+    next(e)
+}
+}
+)
 export default router;
 
 
