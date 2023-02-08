@@ -1,78 +1,30 @@
-import express from 'express'
-import { get } from 'mongoose'
-import HotelDetails from '../models/hotel.js'
-import { createError } from '../utils/errors.js'
+import express from "express";
+import { get } from "mongoose";
+import {
+  createHotel,
+  deleteHotel,
+  getAllHotels,
+  getHotel,
+  updateHotel,
+} from "../controllers/hotel.js";
+import HotelDetails from "../models/hotel.js";
+import { createError } from "../utils/errors.js";
 
-const router = express.Router()
+const router = express.Router();
 
 //POST METHOD
-router.post('/', async(req,res)=>{
-
-const newHotel = new HotelDetails(req.body)
-    try{
-        const savedHotel = await newHotel.save()
-        res.status(200).json(savedHotel)
-}
-catch(e)
-{
-    console.log(e)
-}
-})
+router.post("/", createHotel);
 
 //UPDATE Method
 
-router.put('/:id', async(req,res)=>{
-    try{
-        const updateHotel = await HotelDetails.findByIdAndUpdate(req.params.id,{$set: req.body}, {new:true})
-        res.status(200).json(updateHotel)
-}
-catch(e)
-{
-    console.log(e)
-}
-}
-)
+router.put("/:id", updateHotel);
 
 //DELETE Method
-router.delete('/:id', async(req,res)=>{
-    try{
-         await HotelDetails.findByIdAndDelete(req.params.id)
-        res.status(200).json("Hotel has been deleted from the Database...")
-}
-catch(e)
-{
-    console.log(e)
-}
-}
-)
+router.delete("/:id", deleteHotel);
 
 //GET Method
-router.get('/:id', async(req,res)=>{
-    try{
-         const get_hotel = await HotelDetails.findById(req.params.id)
-        res.status(200).json(get_hotel)
-}
-catch(e)
-{
-    console.log(e)
-}
-}
-)
+router.get("/:id", getHotel);
 
 //GET all hotels
-router.get('/', async(req,res,next)=>{
- 
-    try{
-         const get_hotels = await HotelDetails.find()
-        res.status(200).json(get_hotels)
-
-}
-catch(e)
-{
-    next(e)
-}
-}
-)
+router.get("/", getAllHotels);
 export default router;
-
-
