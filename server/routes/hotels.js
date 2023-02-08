@@ -1,6 +1,7 @@
 import express from 'express'
 import { get } from 'mongoose'
 import HotelDetails from '../models/hotel.js'
+import { createError } from '../utils/errors.js'
 
 const router = express.Router()
 
@@ -60,16 +61,9 @@ catch(e)
 
 //GET all hotels
 router.get('/', async(req,res,next)=>{
-   const failed = true;
-   const err = new Error()
-   err.status = 404;
-   err.message = "Sorry. The data is not found..."
-   if(failed)
-   {
-    return next(err)
-   }
+ 
     try{
-         const get_hotels = await HotelDetails.findById("dhjkshdkj")
+         const get_hotels = await HotelDetails.find()
         res.status(200).json(get_hotels)
 
 }
