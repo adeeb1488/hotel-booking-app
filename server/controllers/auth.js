@@ -1,6 +1,7 @@
 import UserDetails from "../models/user.js"
 import bcrypt from 'bcryptjs'
 import { createError } from "../utils/errors.js"
+import jwt from "jsonwebtoken"
 
 export const signup = async(req,res,next) =>{
     try{
@@ -34,9 +35,13 @@ export const signin = async(req,res,next) =>{
       {
         return next(createError(400,"Incorrect Password. Please try again..."))
       }
+      const token = jwt.sign({id:user._id, isAdmin:user.isAdmin}, process.env.JWT_KEY)
       
-        
-      res.status(200).json(user)
+        //for not displaying the password in response
+        const{password, isAdmin, ...otherDetails} = user._doc
+      res.cookie("Access_Token ",token,{
+        httpOnly:true
+      }).status(200).json({...otherDetails})
     }
     catch(e){
         next(e)
