@@ -9,18 +9,20 @@ import {
 } from "../controllers/hotel.js";
 import HotelDetails from "../models/hotel.js";
 import { createError } from "../utils/errors.js";
+import { checkAdmin } from "../utils/tokenVerify.js";
+
 
 const router = express.Router();
 
 //POST METHOD
-router.post("/", createHotel);
+router.post("/", checkAdmin,createHotel);
 
 //UPDATE Method
 
-router.put("/:id", updateHotel);
+router.put("/:id", checkAdmin,updateHotel);
 
 //DELETE Method
-router.delete("/:id", deleteHotel);
+router.delete("/:id", checkAdmin, deleteHotel);
 
 //GET Method
 router.get("/:id", getHotel);
