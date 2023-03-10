@@ -1,13 +1,24 @@
 import express from 'express'
+import { createRoom, deleteRoom, getAllRooms, getRoom, updateRoom } from '../controllers/room.js';
+import { checkAdmin } from '../utils/tokenVerify.js';
 
 const router = express.Router()
 
-router.get('/',(req,res) => {
-    res.send("Hello, this is the rooms route")
-})
-// router.get('/signup',(req,res) => {
-//     res.send("Hello, this is the auth- sign up route. ")
-// })
+//POST METHOD
+router.post("/:hotelid", checkAdmin,createRoom);
+
+//UPDATE Method
+
+router.put("/:id", checkAdmin,updateRoom);
+
+//DELETE Method
+router.delete("/:id/:hotelid", checkAdmin, deleteRoom);
+
+//GET Method
+router.get("/:id", getRoom);
+
+//GET all hotels
+router.get("/", getAllRooms);
 export default router;
 
 

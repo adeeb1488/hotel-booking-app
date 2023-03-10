@@ -8,8 +8,10 @@ export const createRoom = async(req,res,next)=>{
 
     try{
         const savedRoom = await newRoom.save();
+        console.log(savedRoom)
         try{
-            await HotelDetails.findByIdAndUpdate(hotelId, {$push:{rooms:savedRoom._id}})
+            console.log(hotelId)
+            await HotelDetails.findByIdAndUpdate(hotelId, {$push:{roooms:savedRoom._id}})
         }
         catch(e)
         {
@@ -19,7 +21,7 @@ export const createRoom = async(req,res,next)=>{
     res.status(200).json(savedRoom)
     }catch(e)
     {
-        next(err)
+        next(e)
     }
 }
 export const updateRoom = async(req,res,next)=>{
@@ -33,8 +35,17 @@ catch(e)
 }
 }
 export const deleteRoom = async(req,res,next)=>{
+    const hotelId = req.params.hotelid;
     try{
         await RoomDetails.findByIdAndDelete(req.params.id)
+        try{
+            console.log(hotelId)
+            await HotelDetails.findByIdAndUpdate(hotelId, {$pull:{roooms:req.params.id}})
+        }
+        catch(e)
+        {
+            next(e)
+        }
        res.status(200).json("Room has been deleted from the Database...")
 }
 catch(e)
