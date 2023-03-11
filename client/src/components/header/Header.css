@@ -121,3 +121,7 @@
 .optionCounterButton:disabled{
     cursor: not-allowed;
 }
+
+.headerContainer.listMode{
+margin: 20px 0px 0px 0px;
+}

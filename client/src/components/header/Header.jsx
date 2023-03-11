@@ -7,7 +7,7 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css';
 import {format} from 'date-fns' // theme css file
-const Header = () => {
+const Header = ({type}) => {
   const[openCalendar, setOpenCalendar]= useState(false)
   const[openOptions, setOpenOptions]= useState(false)
   const[options, setOptions]= useState({
@@ -29,7 +29,7 @@ const handleOption =(name, operation) =>{
 
   return (
     <div className='header'>
-      <div className="headerContainer">
+      <div className={type==="list"?"headerContainer listMode":"headerContainer"}>
      <div className="headerList">
       <div className="headerListItem active">
       <FontAwesomeIcon icon={faBed} />
@@ -48,6 +48,9 @@ const handleOption =(name, operation) =>{
       <span>Taxi</span>
       </div>
      </div>
+     {
+      type!=="list"&&
+      <>
      <h1 className="headerTitle">
       Hotels at affordable prices? Why not?
      </h1>
@@ -106,6 +109,7 @@ const handleOption =(name, operation) =>{
     <button className="headerBtn">Search</button>
      </div>
      </div>
+     </>}
      </div>
 
       </div>
