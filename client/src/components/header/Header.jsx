@@ -9,7 +9,11 @@ import 'react-date-range/dist/theme/default.css';
 import {format} from 'date-fns' // theme css file
 const Header = () => {
   const[openCalendar, setOpenCalendar]= useState(false)
-  
+  const[openOptions, setOpenOptions]= useState(false)
+  const[options, setOptions]= useState({
+    persons:1,
+    rooms: 1
+  })
   const [date, setDate]= useState([
     {
       startDate: new Date(),
@@ -17,6 +21,12 @@ const Header = () => {
       key:'selection'
     }
   ])
+const handleOption =(name, operation) =>{
+  setOptions((prev)=>{return{
+    ...prev, [name]: operation === "i"?options[name] +1 : options[name]-1
+  } })
+}
+
   return (
     <div className='header'>
       <div className="headerContainer">
@@ -65,7 +75,32 @@ const Header = () => {
      </div>
      <div className="headerSearchItem">
      <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-     <span className='headerSearchText'>1 person 1 room</span>
+     <span onClick={()=>setOpenOptions(!openOptions)} className='headerSearchText'>{`${options.persons} persons * ${options.rooms} rooms`}</span>
+     {
+      openOptions&&
+     <div className="options">
+      <div className="optionItem">
+        <span className="optionText">Person</span>
+        <div className="optionCounter">
+        <button 
+        disabled={options.persons<=1}
+        className="optionCounterButton" onClick={()=> handleOption("persons","d")}>-</button>
+       <span className="optionCounterNumber">{options.persons}</span>
+        <button className="optionCounterButton"onClick={()=> handleOption("persons","i")}>+</button>
+        </div>
+      </div>
+      <div className="optionItem">
+        <span className="optionText">Rooms</span>
+        <div className="optionCounter">
+        <button 
+        disabled={options.rooms<=1}
+        className="optionCounterButton" onClick={()=> handleOption("rooms","d")}>-</button>
+       <span className="optionCounterNumber">{options.rooms}</span>
+        <button className="optionCounterButton" onClick={()=> handleOption("rooms","i")}>+</button>
+        </div>
+      </div>
+     </div>
+     }
      </div>
      <div className="headerSearchItem">
     <button className="headerBtn">Search</button>
