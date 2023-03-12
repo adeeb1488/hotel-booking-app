@@ -84,13 +84,14 @@ const handleSearch=()=>{
      <div className="headerSearchItem">
      <FontAwesomeIcon icon={faCalendarDays} className="headerIcon"  />
      <span onClick={()=>setOpenCalendar(!openCalendar)} className='headerSearchText'>{`${format(date[0].startDate,"MM/dd/yyyy")} to ${format(date[0].endDate,"MM/dd/yyyy")}`}</span>
-     {openCalendar&&<DateRange
+     {openCalendar&&
+     <DateRange
      editableDateInputs={true}
      onChange={item=> setDate([item.selection])}
      moveRangeOnFirstSelection={false}
      ranges={date}
      className="date"
-     
+      minDate={new Date()}
      />}
      </div>
      <div className="headerSearchItem">
