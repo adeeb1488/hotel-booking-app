@@ -1,38 +1,32 @@
 import React from 'react'
 import './FavouriteProperties.css'
+import useFetch from '../../hooks/useFetch'
 const FavouriteProperties = () => {
+  const { data, loading, error } = useFetch("/hotels?featured=true&limit=4");
   return (
     <div className='fp'>
-    <div className="fpItem">
-    <img src={require("../../assets/images/hotel.jpg")} alt="" className='fpImg' />  
-    <span className="fpName">Apartment 1</span>
-    <span className="fpCity">Tokyo</span>
-    <span className="fpPrice">Starting from $120</span>
-    <div className="fpRating">
-        <button>8.9</button>
+    {loading?"Loading" : <>
+   
+    {data?.map(item=>(
+
+    <div className="fpItem" key={item._id}>
+    <img src={item.images[0]} alt="" className='fpImg' />  
+    <span className="fpName">{item.hotel_name}</span>
+    <span className="fpCity">{item.city}</span>
+    <span className="fpPrice">Starting from $ {item.cheapestPrice}</span>
+   { item.hotel_rating
+   &&<div className="fpRating">
+        <button>{item.hotel_rating}</button>
         <span>Excellent</span>
     </div>
+}
     </div>
-    <div className="fpItem">
-    <img src={require("../../assets/images/hotel.jpg")} alt="" className='fpImg' />  
-    <span className="fpName">Apartment 1</span>
-    <span className="fpCity">Tokyo</span>
-    <span className="fpPrice">Starting from $120</span>
-    <div className="fpRating">
-        <button>8.9</button>
-        <span>Excellent</span>
-    </div>
-    </div>
-    <div className="fpItem">
-    <img src={require("../../assets/images/hotel.jpg")} alt="" className='fpImg' />  
-    <span className="fpName">Apartment 1</span>
-    <span className="fpCity">Tokyo</span>
-    <span className="fpPrice">Starting from $120</span>
-    <div className="fpRating">
-        <button>8.9</button>
-        <span>Excellent</span>
-    </div>
-    </div>
+  ))  
+  }
+    </>
+    
+  }
+
     </div>
   )
 }
