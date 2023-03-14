@@ -1,6 +1,7 @@
 import express from "express";
 import { get } from "mongoose";
 import {
+  countByCity,
   createHotel,
   deleteHotel,
   getAllHotels,
@@ -25,8 +26,10 @@ router.put("/:id", checkAdmin,updateHotel);
 router.delete("/:id", checkAdmin, deleteHotel);
 
 //GET Method
-router.get("/:id", getHotel);
+router.get("/find/:id", getHotel);
 
 //GET all hotels
 router.get("/", getAllHotels);
+router.get("/countByCity", countByCity);
+router.get("/countByType", getAllHotels);
 export default router;

@@ -6,6 +6,7 @@ import userRouter from './routes/users.js'
 import hotelsRouter from './routes/hotels.js'
 import roomsRouter from './routes/rooms.js'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 
 const app = express()
 dotenv.config()
@@ -26,6 +27,7 @@ app.listen(process.env.PORT_NUM || 8080, ()=>{
 })
 //middleware
 app.use(cookieParser())
+app.use(cors())
 app.use(express.json())// using this to solve the error of sending json object directly to express server...
 app.use("/api/auth", authRouter)
 app.use("/api/users", userRouter)
