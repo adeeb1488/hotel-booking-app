@@ -67,3 +67,26 @@ catch(e)
    next(e)
 }
 }
+
+export const countByType = async(req,res,next)=>{
+    try{
+        const hotelCount = await HotelDetails.countDocuments({hotel_type:"hotel"})
+        const apartmentCount =await HotelDetails.countDocuments({hotel_type:"apartment"})
+        const resortCount =await HotelDetails.countDocuments({hotel_type:"resort"})
+        const villaCount =await HotelDetails.countDocuments({hotel_type:"villa"})
+        const cabinCount =await HotelDetails.countDocuments({hotel_type:"cabin"})
+     
+       res.status(200).json([
+        {hotel_type:"hotel",count:hotelCount },
+        {hotel_type:"apartments",count:apartmentCount },
+        {hotel_type:"resorts",count:resortCount },
+        {hotel_type:"villas",count:villaCount },
+        {hotel_type:"cabins",count:cabinCount }
+       ])
+
+}
+catch(e)
+{
+   next(e)
+}
+}
