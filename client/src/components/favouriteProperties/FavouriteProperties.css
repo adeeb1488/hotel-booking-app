@@ -32,7 +32,7 @@
 }
 
 .fpRating>button{
-background-color: #bf1fff;
+background-color: #0215e3;
 color: white;
 border: none;
 padding: 3px;
@@ -43,3 +43,4 @@ font-weight: bold;
 fpRating>span{
     font-size: 14px;
 }
+

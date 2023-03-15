@@ -19,7 +19,7 @@
   .lButton {
     border: none;
     padding: 10px 20px;
-    background-color: #0071c2;
+    background-color: black;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -27,6 +27,18 @@
   }
   
   .lButton:disabled{
-    background-color: #0071c28c;
+    background-color: lightgray;
     cursor: not-allowed;
+  }
+
+  .pageTitle{
+    font-size: 40px;
+    font-weight: bold;
+    
+  }
+
+  .welcomeMessage{
+    margin-top: 10px;
+    color: gray;
+    font-weight: 500;
   }

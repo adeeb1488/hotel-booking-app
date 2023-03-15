@@ -10,7 +10,7 @@ const FavouriteProperties = () => {
     {data?.map(item=>(
 
     <div className="fpItem" key={item._id}>
-    <img src={item.images[0]} alt="" className='fpImg' />  
+    <img src={require("../../assets/images/hotel.jpg")} alt="" className='fpImg' />  
     <span className="fpName">{item.hotel_name}</span>
     <span className="fpCity">{item.city}</span>
     <span className="fpPrice">Starting from $ {item.cheapestPrice}</span>
