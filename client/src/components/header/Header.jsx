@@ -9,6 +9,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css';
 import {format} from 'date-fns' // theme css file
 import { SearchContext } from '../../context/SearchContext';
+import { AuthContext } from '../../context/AuthContext';
 const Header = ({type}) => {
   const[destination, setDestination]= useState("")
   const[openCalendar, setOpenCalendar]= useState(false)
@@ -26,6 +27,9 @@ const Header = ({type}) => {
     }
   ])
   const navigate = useNavigate()
+  const { user_name} = useContext(AuthContext)
+
+
 const handleOption =(name, operation) =>{
   setOptions((prev)=>{return{
     ...prev, [name]: operation === "i"?options[name] +1 : options[name]-1
@@ -76,7 +80,7 @@ const handleSearch=()=>{
      <p className="headerDescription">
       Book a hotel for your stay today and get 10% cashback and savings. 
      </p>
-     <button className="headerBtn">Sign in / Register</button>
+     {!user_name&&<button className="headerBtn">Sign in / Register</button>}
      
      <div className="headerSearch">
      <div className="headerSearchItem">
